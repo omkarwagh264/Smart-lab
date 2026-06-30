@@ -6,5 +6,5 @@ import react from '@vitejs/plugin-react';
 // If you rename the repo, update this value to match.
 export default defineConfig({
   plugins: [react()],
-  base: '/cadmech-fullstack-assessment/',
+  base: '/Smart-lab/',
 });
