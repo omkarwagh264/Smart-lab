@@ -1,0 +1,6 @@
+name,type,status,location,serial_number,description,health_score,last_maintained
+3D Printer Ultimaker S5,Automation Trainer,Active,Bay D1,AUT-7020,FDM 3D printer for prototyping,90,2026-06-15
+Pressure Sensor Array,IoT Sensor,Active,Lab Floor,IOT-3093,Multi-point pressure monitoring,82,2026-05-28
+Siemens S7-1200 PLC,PLC Module,Under Maintenance,Bay B3,PLC-2004,Compact PLC for training labs,45,2026-01-20
+Compressor Unit,Pneumatic System,Active,Bay C3,PNU-5078,Main air supply compressor,70,2026-04-02
+Main Switchgear Panel,Electrical Panel,Active,Utility Room,ELP-6005,Primary power distribution,88,2026-05-30

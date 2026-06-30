@@ -1,0 +1,6 @@
+node_modules/
+.env
+db/smartlab.db
+db/smartlab.db-journal
+db/smartlab.db-wal
+db/smartlab.db-shm
