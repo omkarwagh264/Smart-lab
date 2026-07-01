@@ -19,6 +19,7 @@ const SCHEMA_PATH = path.join(__dirname, 'schema.sql');
 let SQL = null;
 let db = null;
 let ready = null;
+let inTransaction = false; // tracks whether we're inside transaction() so run() skips per-statement persist
 
 function persist() {
   const data = db.export();
@@ -88,21 +89,28 @@ const api = {
       }
       stmt.free();
     }
-    persist();
+    // IMPORTANT: db.export() (used by persist()) implicitly ends any open
+    // SQLite transaction in sql.js's WASM build. So we must NOT persist
+    // after every statement while a transaction() call is in progress —
+    // only persist once, after the whole transaction has committed.
+    if (!inTransaction) persist();
     return { lastInsertRowid };
   },
 
   // Run multiple inserts inside a manual transaction for speed/atomicity.
   async transaction(fn) {
     await waitReady();
+    inTransaction = true;
     db.run('BEGIN TRANSACTION');
     try {
       await fn();
       db.run('COMMIT');
-      persist();
     } catch (err) {
       db.run('ROLLBACK');
       throw err;
+    } finally {
+      inTransaction = false;
+      persist(); // single persist after the transaction resolves either way
     }
   },
 };
